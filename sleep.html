@@ -1,0 +1,96 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>ASD Project</title>
+    <script src="jatos.js"></script>
+    <script src="jspsych/jspsych.js"></script>
+    <link href="jspsych/jspsych.css" rel="stylesheet" type="text/css" />
+    <script src="jspsych/plugin-html-keyboard-response.js"></script>
+    <script src="jspsych/plugin-image-keyboard-response.js"></script>
+    <script src="jspsych/plugin-html-button-response.js"></script>
+    <script src="jspsych/plugin-preload.js"></script>
+    <script src="jspsych/plugin-sketchpad.js"></script>
+    <script src="jspsych/plugin-survey-text.js"></script>
+</head>
+
+<style type="text/css">
+    .jspsych-btn{margin: 10px;}
+    .jspsych-content-wrapper{width: 90%;}
+    .jspsych-content-wrapper p, h3{text-align: left;}
+    .jspsych-content-wrapper input[type="text"], textarea{width: 100%;}
+    .jspsych-content{width: 100%;}
+</style>
+
+</head>
+<body>
+    <div id="jspsych-target"></div>
+</body>
+
+
+<script>
+
+    /* initialize jsPsych */
+    var jsPsych = initJsPsych({
+        on_finish: () => jatos.endStudy(jsPsych.data.get().json())
+    });
+
+    var timeline = [];
+
+    /* add participant info to each trial */
+    /* 
+    var partinfo = {
+      type: jsPsychSurveyText,
+      questions: [
+        {prompt: 'Enter participant code'}
+      ],
+      on_finish: function(data){
+        var responses = JSON.parse(data.responses);
+        var code = responses.Q0;
+        jsPsych.data.addProperties({participantCode: code});
+      }
+    }
+    timeline.push(partinfo)
+    */
+    /* add time stamp to each trial */
+    jsPsych.data.addProperties({
+      timestamp: Date.now() 
+    });
+
+      /* participant ID */
+    var ppn_form = {
+        type: jsPsychSurveyText,
+          questions: [
+            {prompt: 'Enter your participant ID:'}
+          ]
+        }
+    timeline.push(ppn_form)
+
+    /* Questions about daily pain experience */
+    var sleep_diary = {
+        type: jsPsychSurveyText,
+        preamble: "<h1>Sleep diary</h1>",
+        questions: [{prompt: "<b> In this part, you are asked to document your sleep from the last night. Please fill out this questionnaire each morning. </b><br> <br> <br> <b>Question 1: At what time did you go to bed last night? </b>", rows: 20, columns: 80},
+              {prompt: "<b>Question 2: After settling down, how long did it take you to fall asleep (in minutes/hours)?", rows: 20, columns: 80},
+              {prompt: "<b>Question 3: After falling asleep, about how many times did you wake up in the night?", rows: 20, columns: 80},
+              {prompt: "<b>Question 4: After falling asleep, for how long were you awake during the night in total (in minutes/hours)?", rows: 20, columns: 80},
+              {prompt: "<b>Question 5: At what time did you finally wake up?", rows: 20, columns: 80},
+              {prompt: "<b>Question 6: At what time did you get up?", rows: 20, columns: 80},
+              {prompt: "<b>Question 7: How long did you spend in bed last night (from first getting in, to finally getting up; in minutes/hours)?", rows: 20, columns: 80},
+              {prompt: "<b>Question 8: How would you rate the quality of your sleep last night?", rows: 20, columns: 80},
+              {prompt: "<b>Question 9: Did you take naps during the last day? If yes, please write down how many did you take and how long did each one last.", rows: 20, columns: 80},
+              {prompt: "If there is anything else you would like to share, please do so in the box below: ", rows: 10, columns: 80}],
+    };
+
+
+    timeline.push(sleep_diary);
+
+    /* start the experiment */
+    jatos.onLoad(() => {
+      jatos.addAbortButton();
+      jsPsych.run(timeline);
+    });
+
+</script>
+</html>

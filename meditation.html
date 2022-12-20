@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ASD project</title>
+    <script src="jatos.js"></script>
+    <script src="jspsych/jspsych.js"></script>
+    <link href="jspsych/jspsych.css" rel="stylesheet" type="text/css" />
+    <script src="jspsych/plugin-html-keyboard-response.js"></script>
+    <script src="jspsych/plugin-image-keyboard-response.js"></script>
+    <script src="jspsych/plugin-html-button-response.js"></script>
+    <script src="jspsych/plugin-preload.js"></script>
+    <script src="jspsych/plugin-sketchpad.js"></script>
+    <script src="jspsych/plugin-survey-text.js"></script>
+    <script src="jspsych/plugin-survey.js"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-audio-keyboard-response@1.0.0"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-audio-button-response@1.0.0"></script>
+
+    <style type="text/css">
+      .jspsych-btn{margin: 10px;}
+      .jspsych-content-wrapper{width: 90%;}
+      .jspsych-content-wrapper p, h3{text-align: left;}
+      .jspsych-content-wrapper input[type="text"], textarea{width: 100%;}
+      .jspsych-content{width: 100%;}
+     </style>
+
+  </head>
+  <body></body>
+
+  <script>
+
+      /* initialize jsPsych */
+      var jsPsych = initJsPsych({
+          show_progress_bar: true, 
+          override_safe_mode: true, 
+          on_finish: () => jatos.endStudy(jsPsych.data.get().json()) 
+      });
+
+  
+      /* create timeline */
+      var timeline = [];
+
+      /* add time stamp to each trial */
+      jsPsych.data.addProperties({
+        timestamp: Date.now()
+      }); 
+
+      /* participant ID */
+      var ppn_form = {
+        type: jsPsychSurveyText,
+          questions: [
+            {prompt: 'Enter your participant ID:'}
+          ]
+        }
+      timeline.push(ppn_form)
+
+      /* define instructions */
+      var instructions = {
+        type: jsPsychHtmlKeyboardResponse,
+        stimulus: `
+          <p> Welcome to your daily meditation session! </p>
+          <p> On the next screen you will be asked to follow recorded instructions. After that you will be asked a few questions regarding how you felt during the meditation session. </p>
+          <p> For this, we will use a grid which you will use to indicate the intensity of each experience across time. </p>
+          <p> Please start drawing from the start of the meditation until the timepoint when the meditation ends. </p>
+          <p> Please press any key to continue. </p>
+        `,
+        post_trial_gap: 1
+      };
+      timeline.push(instructions);
+
+      /* preloads stimuli automatically */ 
+      var preload = {
+          type: jsPsychPreload,
+          auto_preload: true, // automatically preload the image and audio files
+          audio: ['sounds/MeditationTrack.mp3']
+      }
+      timeline.push(preload)
+
+      var audio = ['sounds/MeditationTrack.mp3'];
+
+      var audiomeditation = {
+        type: jsPsychAudioKeyboardResponse,
+        stimulus: audio,
+        choices: "ALL_KEYS",
+        prompt: '<p>Please listen to the audio and follow the instructions.</p>',
+        response_ends_trial: true,
+        trial_ends_after_audio: true,
+        response_allowed_while_playing: true
+      };
+      timeline.push(audiomeditation);
+
+        /* setup retrospective experience traces for phenomenology */ 
+      var experiencediary = '<p style="text-align:left;font-size:30px;font-weight:bold;"> Meditation session </p>' 
+      var desc = '<p style="text-align:left;font-size:20px;">Question '
+      var description = experiencediary + 
+                            '<p style="text-align:left;font-size:20px;"> Please describe what your experience was like using the following ratings: <br> </p>' + 
+                            desc
+      /* var pd = ': To which extent... ' */
+
+      var items = [
+          { item: description + '1: How aware were you of the activities of your mind?</p>', img: 'img/verymuch_notatall_meditation.png'}, 
+          { item: description + '2: How alert did you feel during the meditation?</p>', img: 'img/verymuch_notatall_meditation.png'},
+          { item: description + '3: How bored did you feel over the course of the meditation?</p>', img: 'img/verymuch_notatall_meditation.png'},
+          { item: description + '4: How effortful did the meditation feel over time?</p>', img: 'img/verymuch_notatall_meditation.png'},
+          { item: description + '5: Were you actively generating the content of your experiences, or watching passively?</p>', img: 'img/verymuch_notatall_meditation.png'},
+          { item: description + '6: How focused or distracted were you on the task you were doing?</p>', img: 'img/verymuch_notatall_meditation.png'},
+          { item: description + '7: How aware were you of the physical sensations of your body - for example your breath or heartbeat?</p>', img: 'img/verymuch_notatall_meditation.png'},
+          { item: description + '8: Were you seeking for specific senses (touch, taste, sound, etc.)?</p>', img: 'img/verymuch_notatall_meditation.png'},
+          { item: description + '9: How physically tense did you feel, referring to specific parts of the body as well as the whole body?</p>', img: 'img/verymuch_notatall_meditation.png'},
+          { item: description + '10: How much were you worrying about present and future events (e.g., scenario planning)?</p>', img: 'img/verymuch_notatall_meditation.png'},
+          { item: description + '11: How much were you worrying about past events (e.g., ruminating, replaying interactions)?</p>', img: 'img/verymuch_notatall_meditation.png'},
+          { item: description + '12: How stressed did you feel throughout the meditation?</p>', img: 'img/verymuch_notatall_meditation.png'},
+          { item: description + '13: Extra dimension:</p>', img: 'img/verymuch_notatall_meditation.png'}
+          ]
+
+      var quality = {
+          timeline: [
+          {
+            type: jsPsychSketchpad,
+            prompt_location: 'abovecanvas',
+            canvas_width: 757,
+            canvas_height: 435,
+            canvas_border_width: 2, 
+            prompt: jsPsych.timelineVariable('item'),
+            background_image: jsPsych.timelineVariable('img')
+          },
+          ], 
+          timeline_variables: [
+          { item: description + '1: How aware were you of the activities of your mind?</p>', img: 'img/verymuch_notatall_meditation.png'}, 
+          { item: description + '2: How alert did you feel during the meditation?</p>', img: 'img/verymuch_notatall_meditation.png'},
+          { item: description + '3: How bored did you feel over the course of the meditation?</p>', img: 'img/verymuch_notatall_meditation.png'},
+          { item: description + '4: How effortful did the meditation feel over time?</p>', img: 'img/verymuch_notatall_meditation.png'},
+          { item: description + '5: Were you actively generating the content of your experiences, or watching passively?</p>', img: 'img/verymuch_notatall_meditation.png'},
+          { item: description + '6: How focused or distracted were you on the task you were doing?</p>', img: 'img/verymuch_notatall_meditation.png'},
+          { item: description + '7: How aware were you of the physical sensations of your body - for example your breath or heartbeat?</p>', img: 'img/verymuch_notatall_meditation.png'},
+          { item: description + '8: Were you seeking for specific senses (touch, taste, sound, etc.)?</p>', img: 'img/verymuch_notatall_meditation.png'},
+          { item: description + '9: How physically tense did you feel, referring to specific parts of the body as well as the whole body?</p>', img: 'img/verymuch_notatall_meditation.png'},
+          { item: description + '10: How much were you worrying about present and future events (e.g., scenario planning)?</p>', img: 'img/verymuch_notatall_meditation.png'},
+          { item: description + '11: How much were you worrying about past events (e.g., ruminating, replaying interactions)?</p>', img: 'img/verymuch_notatall_meditation.png'},
+          { item: description + '12: How stressed did you feel throughout the meditation?</p>', img: 'img/verymuch_notatall_meditation.png'}
+          ]
+      }
+
+      var subject_id; // value is set during the experiment
+
+      timeline.push(quality);
+      /*jsPsych.run(timeline); */
+      
+      var extra_dimension = {
+        type: jsPsychSurvey,
+        pages: [
+          [
+            {
+              type: 'html',
+              prompt : "Question 13: Please indicate below what extra dimension you would like to add, if any, then click on <strong>Finish</strong> to access the sketchpad.</p>", img: "img/verymuch_notatall_meditation.png"
+            },
+            {
+              type: 'text',
+              prompt: "Enter the extra dimension here:", 
+              name: 'Extra', 
+              required: false
+            }, 
+          ]
+        ],
+      };
+
+      timeline.push(extra_dimension);
+
+      var last_sketch = {
+          timeline: [
+          {
+            type: jsPsychSketchpad,
+            prompt_location: 'abovecanvas',
+            canvas_width: 757,
+            canvas_height: 435,
+            canvas_border_width: 2, 
+            prompt: jsPsych.timelineVariable('item'),
+            background_image: jsPsych.timelineVariable('img')
+          },
+          ], 
+          timeline_variables: [
+          { item: description + '13: Extra dimension:</p>', img: 'img/verymuch_notatall_meditation.png'}
+          ]
+      }
+
+      timeline.push(last_sketch);
+
+      /* start the experiment */
+      jatos.onLoad(() => {
+        jatos.addAbortButton();
+        jsPsych.run(timeline);
+      });
+
+  </script>
+</html>

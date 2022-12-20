@@ -1,0 +1,355 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>ASD Project</title>
+    <script src="jatos.js"></script>
+    <script src="jspsych/jspsych.js"></script>
+    <link href="jspsych/jspsych.css" rel="stylesheet" type="text/css" />
+    <script src="jspsych/plugin-html-keyboard-response.js"></script>
+    <script src="jspsych/plugin-image-keyboard-response.js"></script>
+    <script src="jspsych/plugin-html-button-response.js"></script>
+    <script src="jspsych/plugin-preload.js"></script>
+    <script src="jspsych/plugin-sketchpad.js"></script>
+    <script src="jspsych/plugin-survey-text.js"></script>
+    <script src="jspsych/plugin-survey-multi-choice.js"></script>
+    <script src="jspsych/plugin-survey.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/@jspsych/plugin-survey@0.2.1/css/survey.css">
+</head>
+
+<style type="text/css">
+    .jspsych-btn{margin: 10px;}
+    .jspsych-content-wrapper{width: 90%;}
+    .jspsych-content-wrapper p, h3{text-align: left;}
+    .jspsych-content-wrapper input[type="text"], textarea{width: 100%;}
+    .jspsych-content{width: 100%;}
+</style>
+
+</head>
+<body>
+    <div id="jspsych-target"></div>
+</body>
+
+
+<script>
+
+    /* initialize jsPsych */
+    var jsPsych = initJsPsych({
+        on_finish: () => jatos.endStudy(jsPsych.data.get().json())
+    });
+
+    var timeline = [];
+
+    /* add participant info to each trial */
+    /* 
+    var partinfo = {
+      type: jsPsychSurveyText,
+      questions: [
+        {prompt: 'Enter participant code'}
+      ],
+      on_finish: function(data){
+        var responses = JSON.parse(data.responses);
+        var code = responses.Q0;
+        jsPsych.data.addProperties({participantCode: code});
+      }
+    }
+    timeline.push(partinfo)
+    */
+    /* add time stamp to each trial */
+    jsPsych.data.addProperties({
+      timestamp: Date.now() 
+    });
+
+      /* participant ID */
+    var ppn_form = {
+        type: jsPsychSurveyText,
+          questions: [
+            {prompt: 'Enter your participant ID:'}
+          ]
+        }
+    timeline.push(ppn_form)
+
+    /* Questions about daily activities */
+    var activity = {
+      type: jsPsychSurvey,
+      pages: [
+        [
+          /* Activity 1 */
+          {type: 'html',
+          name: 'Intro 1',
+          prompt: "<b>Here you are asked to document your daily activities. Please enter the activity, its start and end time, and its intensity level (mild/moderate/strong).</b><br> <br> <br> <b> Activity 1 </b> <br>"
+          },
+          {
+            type: 'text',
+            name: 'Description 1',
+            prompt: "Please describe the activity below:",
+            required: false
+          }, 
+          {
+            type: 'text',
+            name: 'Time 1',
+            prompt: "Start Time : End Time",
+            required: false
+          },
+          {
+            type: 'multi-choice',
+            prompt: "Please indicate the intensity:", 
+            name: 'Intensity 1', 
+            options: ['Mild', 'Moderate', 'Strong'], 
+            required: false
+          },
+          /* Activity 2 */
+          {type: 'html',
+          name: 'Intro 2',
+          prompt: "<br> <br> <b> Activity 2 </b> <br>"
+          },
+          {
+            type: 'text',
+            name: 'Description 2',
+            prompt: "Please describe the activity below:",
+            required: false
+          }, 
+          {
+            type: 'text',
+            name: 'Time 2',
+            prompt: "Start Time : End Time",
+            required: false
+          },
+          {
+            type: 'multi-choice',
+            prompt: "Please indicate the intensity:", 
+            name: 'Intensity 2', 
+            options: ['Mild', 'Moderate', 'Strong'], 
+            required: false
+          },
+          /* Activity 3 */
+          {type: 'html',
+          name: 'Intro 3',
+          prompt: "<br> <br> <b> Activity 3 </b> <br>"
+          },
+          {
+            type: 'text',
+            name: 'Description 3',
+            prompt: "Please describe the activity below:",
+            required: false
+          }, 
+          {
+            type: 'text',
+            name: 'Time 3',
+            prompt: "Start Time : End Time",
+            required: false
+          },
+          {
+            type: 'multi-choice',
+            prompt: "Please indicate the intensity:", 
+            name: 'Intensity 3', 
+            options: ['Mild', 'Moderate', 'Strong'], 
+            required: false
+          },
+          /* Activity 4 */
+          {type: 'html',
+          name: 'Intro 4',
+          prompt: "<br> <br> <b> Activity 4 </b> <br>"
+          },
+          {
+            type: 'text',
+            name: 'Description 4',
+            prompt: "Please describe the activity below:",
+            required: false
+          }, 
+          {
+            type: 'text',
+            name: 'Time 4',
+            prompt: "Start Time : End Time",
+            required: false
+          },
+          {
+            type: 'multi-choice',
+            prompt: "Please indicate the intensity:", 
+            name: 'Intensity 4', 
+            options: ['Mild', 'Moderate', 'Strong'], 
+            required: false
+          },
+          /* Activity 5 */
+          {type: 'html',
+          name: 'Intro 5',
+          prompt: "<br> <br> <b> Activity 5 </b> <br>"
+          },
+          {
+            type: 'text',
+            name: 'Description 5',
+            prompt: "Please describe the activity below:",
+            required: false
+          }, 
+          {
+            type: 'text',
+            name: 'Time 5',
+            prompt: "Start Time : End Time",
+            required: false
+          },
+          {
+            type: 'multi-choice',
+            prompt: "Please indicate the intensity:", 
+            name: 'Intensity 5', 
+            options: ['Mild', 'Moderate', 'Strong'], 
+            required: false
+          },
+          /* Activity 6 */
+          {type: 'html',
+          name: 'Intro 6',
+          prompt: "<br> <br> <b> Activity 6 </b> <br>"
+          },
+          {
+            type: 'text',
+            name: 'Description 6',
+            prompt: "Please describe the activity below:",
+            required: false
+          }, 
+          {
+            type: 'text',
+            name: 'Time 6',
+            prompt: "Start Time : End Time",
+            required: false
+          },
+          {
+            type: 'multi-choice',
+            prompt: "Please indicate the intensity:", 
+            name: 'Intensity 6', 
+            options: ['Mild', 'Moderate', 'Strong'], 
+            required: false
+          },
+          /* Activity 7 */
+          {type: 'html',
+          name: 'Intro 7',
+          prompt: "<br> <br> <b> Activity 7 </b> <br>"
+          },
+          {
+            type: 'text',
+            name: 'Description 7',
+            prompt: "Please describe the activity below:",
+            required: false
+          }, 
+          {
+            type: 'text',
+            name: 'Time 7',
+            prompt: "Start Time : End Time",
+            required: false
+          },
+          {
+            type: 'multi-choice',
+            prompt: "Please indicate the intensity:", 
+            name: 'Intensity 7', 
+            options: ['Mild', 'Moderate', 'Strong'], 
+            required: false
+          },
+          /* Activity 8 */
+          {type: 'html',
+          name: 'Intro 8',
+          prompt: "<br> <br> <b> Activity 8 </b> <br>"
+          },
+          {
+            type: 'text',
+            name: 'Description 8',
+            prompt: "Please describe the activity below:",
+            required: false
+          }, 
+          {
+            type: 'text',
+            name: 'Time 8',
+            prompt: "Start Time : End Time",
+            required: false
+          },
+          {
+            type: 'multi-choice',
+            prompt: "Please indicate the intensity:", 
+            name: 'Intensity 8', 
+            options: ['Mild', 'Moderate', 'Strong'], 
+            required: false
+          },
+          /* Activity 9 */
+          {type: 'html',
+          name: 'Intro 9',
+          prompt: "<br> <br> <b> Activity 9 </b> <br>"
+          },
+          {
+            type: 'text',
+            name: 'Description 9',
+            prompt: "Please describe the activity below:",
+            required: false
+          }, 
+          {
+            type: 'text',
+            name: 'Time 9',
+            prompt: "Start Time : End Time",
+            required: false
+          },
+          {
+            type: 'multi-choice',
+            prompt: "Please indicate the intensity:", 
+            name: 'Intensity 9', 
+            options: ['Mild', 'Moderate', 'Strong'], 
+            required: false
+          },
+          /* Activity 10 */
+          {type: 'html',
+          name: 'Intro 10',
+          prompt: "<br> <br> <b> Activity 10 </b> <br>"
+          },
+          {
+            type: 'text',
+            name: 'Description 10',
+            prompt: "Please describe the activity below:",
+            required: false
+          }, 
+          {
+            type: 'text',
+            name: 'Time 10',
+            prompt: "Start Time : End Time",
+            required: false
+          },
+          {
+            type: 'multi-choice',
+            prompt: "Please indicate the intensity:", 
+            name: 'Intensity 10', 
+            options: ['Mild', 'Moderate', 'Strong'], 
+            required: false
+          }
+        ]
+      ]
+    };
+
+  /*
+    var activity_diary = {
+        type: jsPsychSurveyText,
+        preamble: "<h1>Activity diary</h1>",
+        questions: [
+          {prompt: "<b>Here you are asked to document your daily activities. Please enter the activity, its start and end time, and its intensity level (mild/moderate/strong). </b><br> <br> <br> <b> ACTIVITY 1 </b> <br> <b> Please describe the activity below: </b>", rows: 20, columns: 80},
+          {prompt: "<b>Start Time : End Time", rows: 20, columns: 80},
+          ],
+    };
+
+    var intensity = {
+      type: jsPsychSurveyMultiChoice,
+      questions: [
+        { prompt: "Please indicate the intensity:", 
+          name: 'Intensity', 
+          options: ['Mild', 'Moderate', 'Strong'], 
+          required: true
+        }, 
+      ],
+    };
+
+    */
+    
+    timeline.push(activity);
+    
+
+    /* start the experiment */
+    jatos.onLoad(() => {
+      jatos.addAbortButton();
+      jsPsych.run(timeline);
+    });
+
+</script>
+</html>

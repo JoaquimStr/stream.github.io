@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ASD project</title>
+    <script src="jatos.js"></script>
+    <script src="jspsych/jspsych.js"></script>
+    <link href="jspsych/jspsych.css" rel="stylesheet" type="text/css" />
+    <script src="jspsych/plugin-html-keyboard-response.js"></script>
+    <script src="jspsych/plugin-image-keyboard-response.js"></script>
+    <script src="jspsych/plugin-html-button-response.js"></script>
+    <script src="jspsych/plugin-preload.js"></script>
+    <script src="jspsych/plugin-sketchpad.js"></script>
+    <script src="jspsych/plugin-survey-text.js"></script>
+    <script src="jspsych/plugin-survey.js"></script>
+
+    <style type="text/css">
+      .jspsych-btn{margin: 10px;}
+      .jspsych-content-wrapper{width: 90%;}
+      .jspsych-content-wrapper p, h3{text-align: left;}
+      .jspsych-content-wrapper input[type="text"], textarea{width: 100%;}
+      .jspsych-content{width: 100%;}
+     </style>
+
+  </head>
+  <body></body>
+
+  <script>
+
+      /* initialize jsPsych */
+      var jsPsych = initJsPsych({
+          show_progress_bar: true, 
+          override_safe_mode: true, 
+          on_finish: () => jatos.endStudy(jsPsych.data.get().json()) 
+      });
+
+  
+      /* create timeline */
+      var timeline = [];
+
+      /* add time stamp to each trial */
+      jsPsych.data.addProperties({
+        timestamp: Date.now()
+      }); 
+
+      /* participant ID */
+      var ppn_form = {
+        type: jsPsychSurveyText,
+          questions: [
+            {prompt: 'Enter your participant ID:'}
+          ]
+        }
+      timeline.push(ppn_form)
+
+      /* define instructions */
+      var instructions = {
+        type: jsPsychHtmlKeyboardResponse,
+        stimulus: `
+          <p> This is a space for you to describe what different dimensions of your experience were like <strong> today </strong>. </p>
+          <p> For this, we will use a grid which you will use to indicate the intensity of each experience across time. </p>
+          <p> Please start drawing from the timepoint when waking up in the morning until the timepoint when filling out the questions in the evening. </p>
+          <p> Please press any key to continue. </p>
+        `,
+        post_trial_gap: 1
+      };
+      timeline.push(instructions);
+
+      /* preloads stimuli automatically */ 
+      var preload = {
+          type: jsPsychPreload,
+          auto_preload: true, // automatically preload the image and audio files
+      }
+      timeline.push(preload)
+
+        /* setup retrospective experience traces for pain phenomenology */ 
+      var experiencediary = '<p style="text-align:left;font-size:30px;font-weight:bold;"> Experience diary </p>' 
+      var desc = '<p style="text-align:left;font-size:20px;">Question '
+      var description = experiencediary + 
+                            '<p style="text-align:left;font-size:20px;"> Please describe what your experience was like using the following ratings: <br> </p>' + 
+                            desc
+      /* var pd = ': To which extent... ' */
+
+      var items = [
+          { item: description + '1: How aware were you during the day of what was going on in your mind?</p>', img: 'img/verymuch_notatall_rating.png'}, 
+          { item: description + '2: How alert did you feel during the day?</p>', img: 'img/verymuch_notatall_rating.png'},
+          { item: description + '3: How bored did you feel during the day?</p>', img: 'img/verymuch_notatall_rating.png'},
+          { item: description + '4: Were you avoiding stimulation of your senses (touch, taste, sound etc)?</p>', img: 'img/verymuch_notatall_rating.png'},
+          { item: description + '5: Were you avoiding social interactions (virtual and/or in person)?</p>', img: 'img/verymuch_notatall_rating.png'},
+          { item: description + '6: How physically tense did you feel throughout the day?</p>', img: 'img/verymuch_notatall_rating.png'},
+          { item: description + '7: How much were you lost in thoughts worrying about present and future events (e.g., scenario planning, trying to solve problems)?</p>', img: 'img/verymuch_notatall_rating.png'},
+          { item: description + '8: How much were you lost in thoughts worrying about past events (e.g., ruminating, replaying interactions)?</p>', img: 'img/verymuch_notatall_rating.png'},
+          { item: description + '9: How stressed did you feel during the day? </p>', img: 'img/verymuch_notatall_rating.png'},
+          { item: description + '10: How strong did you feel physical pain?</p>', img: 'img/verymuch_notatall_rating.png'},
+          { item: description + '11: Extra dimension:</p>', img: 'img/verymuch_notatall_rating.png'}
+          ]
+
+      var quality = {
+          timeline: [
+          {
+            type: jsPsychSketchpad,
+            prompt_location: 'abovecanvas',
+            canvas_width: 757,
+            canvas_height: 435,
+            canvas_border_width: 2, 
+            prompt: jsPsych.timelineVariable('item'),
+            background_image: jsPsych.timelineVariable('img')
+          },
+          ], 
+          timeline_variables: [
+          { item: description + '1: How aware were you during the day of what was going on in your mind?</p>', img: 'img/verymuch_notatall_rating.png'}, 
+          { item: description + '2: How alert did you feel during the day?</p>', img: 'img/verymuch_notatall_rating.png'},
+          { item: description + '3: How bored did you feel during the day?</p>', img: 'img/verymuch_notatall_rating.png'},
+          { item: description + '4: Were you avoiding stimulation of your senses (touch, taste, sound etc)?</p>', img: 'img/verymuch_notatall_rating.png'},
+          { item: description + '5: Were you avoiding social interactions (virtual and/or in person)?</p>', img: 'img/verymuch_notatall_rating.png'},
+          { item: description + '6: How physically tense did you feel throughout the day?</p>', img: 'img/verymuch_notatall_rating.png'},
+          { item: description + '7: How much were you lost in thoughts worrying about present and future events (e.g., scenario planning, trying to solve problems)?</p>', img: 'img/verymuch_notatall_rating.png'},
+          { item: description + '8: How much were you lost in thoughts worrying about past events (e.g., ruminating, replaying interactions)?</p>', img: 'img/verymuch_notatall_rating.png'},
+          { item: description + '9: How stressed did you feel during the day? </p>', img: 'img/verymuch_notatall_rating.png'},
+          { item: description + '10: How strong did you feel physical pain?</p>', img: 'img/verymuch_notatall_rating.png'}
+          ]
+      }
+
+      var subject_id; // value is set during the experiment
+
+      timeline.push(quality);
+      /*jsPsych.run(timeline); */
+      
+      var extra_dimension = {
+        type: jsPsychSurvey,
+        pages: [
+          [
+            {
+              type: 'html',
+              prompt : "Question 11: Please indicate below what extra dimension you would like to add, if any, then click on <strong>Finish</strong> to access the sketchpad.</p>", img: "img/verymuch_notatall_rating.png"
+            },
+            {
+              type: 'text',
+              prompt: "Enter the extra dimension here:", 
+              name: 'Extra', 
+              required: false
+            }, 
+          ]
+        ],
+      };
+
+      timeline.push(extra_dimension);
+
+      var last_sketch = {
+          timeline: [
+          {
+            type: jsPsychSketchpad,
+            prompt_location: 'abovecanvas',
+            canvas_width: 757,
+            canvas_height: 435,
+            canvas_border_width: 2, 
+            prompt: jsPsych.timelineVariable('item'),
+            background_image: jsPsych.timelineVariable('img')
+          },
+          ], 
+          timeline_variables: [
+          { item: description + '11: Extra dimension:</p>', img: 'img/verymuch_notatall_rating.png'}
+          ]
+      }
+
+      timeline.push(last_sketch);
+
+      /* start the experiment */
+      jatos.onLoad(() => {
+        jatos.addAbortButton();
+        jsPsych.run(timeline);
+      });
+
+  </script>
+</html>
