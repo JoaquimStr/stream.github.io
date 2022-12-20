@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="style.css" rel="stylesheet" type="text/css" />
+
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif; 
+      box-sizing: border-box;
+      width: 100%;
+      height: 100vh;
+      margin: 0;
+    }
+
+    img.two {
+      height: 50%; 
+      width: 50%; 
+    }
+      
+    .container {
+        -webkit-column-count: 3; /* Chrome, Safari, Opera */
+        -moz-column-count: 3; /* Firefox */
+        column-count: 3;
+        -webkit-column-gap: 10px; /* Chrome, Safari, Opera */
+        -moz-column-gap: 10px; /* Firefox */
+        column-gap: 10px;
+        padding: 10px;
+    }
+
+    .container div {
+      width: 100%;
+      display: inline-block;  
+      background: lavender;
+      border: 2px solid black;
+      box-sizing: border-box;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .container img {
+      width: 100%;
+      height: auto;
+      vertical-align: middle;
+    }
+
+      /* Add a black background color to the top navigation */
+    .topnav {
+      background-color: #333;
+      overflow: hidden;
+    }
+        
+  
+    .topnav {
+      overflow: hidden;
+      background-color: #303179;
+    }
+
+    .topnav a {
+      float: left;
+      display: block;
+      color: white;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+      font-size: 17px;
+    }
+
+    .topnav a:hover {
+      background-color: #ddd;
+      color: white;
+    }
+
+    .topnav a.active {
+      background-color: #2196F3;
+      color: white;
+    }
+
+    .topnav .search-container button {
+      float: right;
+      padding: 6px 10px;
+      margin-top: 8px;
+      margin-right: 16px;
+      background: #ddd;
+      font-size: 17px;
+      border: none;
+      cursor: pointer;
+    }
+
+</style>
+</head>
+<body>
+
+<div class="topnav">
+  <a href="index.html">Home</a>
+  <a class="active" href="instructions.html">Instructions</a>
+  <a href="eegheadband.html">Using the Dreem EEG headband</a>
+  <a href="signup.html">Before the study</a>
+  <a href="contact.html">Contact</a>
+</div>
+
+
+<style>
+.accordion {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+  transition: 0.4s;
+  margin-left: 2rem;
+}
+
+.active, .accordion:hover {
+  background-color: #ccc; 
+}
+
+.panel {
+  padding: 0 18px;
+  display: none;
+  background-color: white;
+  overflow: hidden;
+}
+
+</style>
+</head>
+<body>
+
+<div style="padding-left:16px">
+
+  <h2>Task overview</h2>
+
+  <p>We will give you an overview of the most important tools in the study and how to use them.</p>
+  <p>You can select 20 experiment days within a time period of four weeks. If anything prevents you from adhering to the schedule, please let the experimenter know. </p>
+
+  <h2>Task descriptions</h2>
+
+  <p>The study contains four main tasks for each experiment day (before going to bed): 
+    <ul>
+      <li> <strong> Night recordings: </strong> Please use the EEG headband to record brain activity every night during sleep. </li>
+      <li> <strong> Pain diary: </strong> Please fill out a pain diary before going to bed. </li>
+      <li> <strong> Pain experience traces: </strong> Please fill out pain ratings indicating the intensity of pain experience components retrospectively for the day. </li>
+      <li> <strong> Attention task: </strong> This is a short meditative task where your attention is guided towards different body parts for some minutes each. </li>
+    </ul> 
+  </p>
+</div>
+
+<button class="accordion">Night recordings </button>
+<div class="panel">
+  <p> We would like to record brain data during sleep to examine which brain activity is linked later increases or decreases in chronic pain levels. </p>
+  <p> <strong> What to do?</strong> Please put on the EEG headband before going to bed and leave it on during the night. 
+       When you wake up in the morning, turn off the headband and charge it using the magnetic charger provided. 
+       Data are only uploaded to a cloud while the headband is charging, so it is important to charge the headband after every use.
+  </p>
+  <p> <strong> When?</strong> Please wear the EEG headband during the night following an experiment day. </p>
+  <p> <strong> How?</strong> Follow <a href="eegheadband.html">these instructions</a> to learn how to use the Dreem headband. </p>
+</div>
+
+<button class="accordion">Pain diary</button>
+<div class="panel">
+  <p> We would like to know your view about what your chronic pain feels like and which factors influence it. </p>
+  <p> <strong> What to do?</strong> You are asked to fill out a pain diary. To fill out the pain diary, please click on the link in the "Home" tab of the study portal. </p>
+  <p> <strong> When?</strong>  The pain diary needs to be filled out every evening before going to bed.</p>
+  <p> <strong> How?</strong>  To fill out the pain diary, please click on the link in the "Home" tab of the study portal. This link will take you to a short survey asking you to describe what your pain and body perception feels like today. You will also be asked to describe which factors you believe to influence your pain and body perception. </p>
+</div>
+
+<button class="accordion">Pain experience traces</button>
+<div class="panel">
+  <p>We use a novel method called retrospective experience tracing to rate the intensity of different aspects of chronic pain experience across time. 
+    Each experience trace maps the intensity of a pain experience component against time. </p>
+  <p><strong> What to do?</strong> You are asked to indicate the intensity of emotional and cognitive pain experience components on a grid. 
+    Each experience trace is headed by a question such as "To which extent is your pain burning?". 
+    To answer this question, you can draw the intensity of their experience in time on a 24h time scale. 
+    <br><br><strong>Example of a retrospective experience trace measuring pain intensity</strong><br>
+    <br><img class="two" src="img/rating.png" width="1190px" height="652px" alt="Rating"><br>
+    You can leave gaps during times when you were sleeping. However, please indicate your pain experience when you were supposed to be sleeping but could not sleep.
+  </p>
+  <p><strong> When?</strong> Please fill out the experience traces every evening before going to bed. </p>
+  <p> <strong> How?</strong>  To fill out the retrospective experience traces, please click on the link in the "Home" tab of the study portal. This link will take you to a short survey asking you to describe what your pain and body perception feels like today. You will also be asked to describe which factors you believe to influence your pain and body perception. </p>
+</div>
+
+<button class="accordion">Attention task</button>
+<div class="panel">
+  <p>We want to know how natural fluctations in attention to the body influence pain experience. </p>
+  <p><strong> What to do?</strong> You are asked to pay attention either to your painful limb, non-painful limb, heartbeat or breathing for 5 minutes each. 
+    To perform the task, please put on the EEG headband and press the Top buttom three times to start recording (indicated by a voice). 
+    Please sit down in a comfortable position and close your eyes. The screen will show which aspect of the body to attend to. A gong will sound to highligh the start and end of each session. 
+    After each session, you will be asked to indicate the intensity of emotional and cognitive pain experience components using retrospective experience tracing.
+    You are asked to draw the intensity of pain experience aspects retrospectively for the last 5 minutes. 
+  </p>
+  <p><strong> When?</strong> Please perform the attention task on each experiment day. Ideally, you can perform the attention task when you fill out the pain experience diary and ratings before going to bed. </p>
+  <p> <strong> How?</strong>  To perform the attention task, please click on the link in the "Home" tab of the study portal. </p>
+</div>
+
+<script>
+var acc = document.getElementsByClassName("accordion");
+var i;
+
+for (i = 0; i < acc.length; i++) {
+  acc[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var panel = this.nextElementSibling;
+    if (panel.style.display === "block") {
+      panel.style.display = "none";
+    } else {
+      panel.style.display = "block";
+    }
+  });
+}
+</script>
+</body>
+</html>

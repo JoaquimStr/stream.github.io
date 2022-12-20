@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="style.css" rel="stylesheet" type="text/css" />
+
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif; 
+      box-sizing: border-box;
+      width: 100%;
+      height: 100vh;
+      margin: 0;
+    }
+
+    img.one {
+     height: 80%;
+     width: 80%;
+    } 
+
+    img.two {
+     height: 20%;
+     width: 20%;
+    } 
+
+
+  .container {
+      -webkit-column-count: 3; /* Chrome, Safari, Opera */
+      -moz-column-count: 3; /* Firefox */
+      column-count: 3;
+      -webkit-column-gap: 10px; /* Chrome, Safari, Opera */
+      -moz-column-gap: 10px; /* Firefox */
+      column-gap: 10px;
+      padding: 10px;
+  }
+
+  .container div {
+    width: 100%;
+    display: inline-block;  
+    background: lavender;
+    border: 2px solid black;
+    box-sizing: border-box;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  .container img {
+    width: 100%;
+    height: auto;
+    vertical-align: middle;
+  }
+    
+    /* Add a black background color to the top navigation */
+  .topnav {
+    background-color: #333;
+    overflow: hidden;
+  }
+      
+    
+  .topnav {
+    overflow: hidden;
+    background-color: #303179;
+  }
+
+  .topnav a {
+    float: left;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+  }
+
+  .topnav a:hover {
+    background-color: #ddd;
+    color: white;
+  }
+
+  .topnav a.active {
+    background-color: #2196F3;
+    color: white;
+  }
+  
+</style>
+</head>
+<body>
+
+<div class="topnav">
+  <a href="index.html">Home</a>
+  <a href="instructions.html">Instructions</a>
+  <a class="active" href="eegheadband.html">Using the Dreem EEG headband</a>
+  <a href="signup.html">Before the study</a>
+  <a href="contact.html">Contact</a>
+</div>
+
+
+<style>
+.accordion {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+  transition: 0.4s;
+  margin-left: 2rem;
+}
+
+.active, .accordion:hover {
+  background-color: #ccc; 
+}
+
+.panel {
+  padding: 0 18px;
+  display: none;
+  background-color: white;
+  overflow: hidden;
+}
+
+</style>
+</head>
+<body>
+
+  <div style="padding-left:16px">
+
+    <h2> Using the Dreem headband to record brain activity </h2>
+
+    <p> The Dreem headband uses deep neurotech to record brain activity using a method called Electroencephalography (EEG). </p>
+
+    <p> We answer the most important questions on how to use it. Further information can be found on the website of the <a href="https://www.dreem.com">manufacturer</a></p>
+ 
+  </div>
+
+  <button class="accordion">How do you setup the Dreem headband?</button>
+  <div class="panel">
+  <p>  To record brain data, the Dreem headband needs to be connected to the WiFi and Bluetooth needs to be turned on. 
+      This is managed through the Alfin Dreem app which needs to be installed (available on the appstore). 
+      <ol type="A">
+        <li> Select the headband icon in the upper right corner of the start screen.  </li> 
+        <li> Provide login details. </li> 
+        <li> Select the Bluetooth icon and press the headband's top button to pair it with your phone. </li>
+        <li> Select the WiFi icon to connect to the local WiFi. </li>
+        <li> Wait for green ticks to appear to confirm that the device is connected to both Bluetooth and WiFi. </li>
+      </ol>
+      <br><img class="one" src="img/setup.png" width="2180px" height="756px" alt="setup"><br> 
+  </p>
+  </div>
+
+  <button class="accordion">How do you put the Dreem headband on your head correctly? </button>
+  <div class="panel">
+    <p> Please watch the following video to learn how to put on the EEG headband. </p>
+        <video width="640" height="480" controls>
+            <source src="img/dreem_howtowear.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+    </video> 
+  </div>
+
+  <button class="accordion">How do you start recording with the Dreem headband? </button>
+  <div class="panel">
+    <p> To start recording, push the top button of the headband three times while wearing the EEG headband. A voice will indicate that the recording has started. 
+      <br><img class="two" src="img/startrecording.png" width="920px" height="1198px" alt="recording start">
+    </p>
+  </div>
+
+  <button class="accordion">How do you stop recording and upload data with the Dreem headband? </button>
+  <div class="panel">
+    <p>
+      To stop recording, push the top button of the headband for a long time. 
+      <br><img class="two" src="img/stoprecording.png" width="692px" height="682px" alt="recording stop"></li><br>
+      <strong> Important! </strong> After you finished recording, please charge the EEG headband with the magnetic charger provided. This is necessary to temporarily upload the brain data into a cloud. 
+      <br><img class="two" src="img/charging.png" width="638px" height="686px" alt="charging"><br>
+    </p>
+  </div>
+
+  <script>
+    var acc = document.getElementsByClassName("accordion");
+    var i;
+    
+    for (i = 0; i < acc.length; i++) {
+      acc[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var panel = this.nextElementSibling;
+        if (panel.style.display === "block") {
+          panel.style.display = "none";
+        } else {
+          panel.style.display = "block";
+        }
+      });
+    }
+    </script>
+
+</body>
+</html>
